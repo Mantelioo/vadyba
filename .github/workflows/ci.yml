@@ -11,8 +11,6 @@ on:
 jobs:
   setup_env:
     runs-on: ubuntu-latest
-    env: 
-      NODE_ENV: development
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -23,7 +21,6 @@ jobs:
         with:
           path: '**/node_modules'
           key: ${{ runner.os }}-build-node-modules-cache-${{ hashFiles('**/package-lock.json') }}
-      
       
       - name: Setup node
         uses: actions/setup-node@v4
@@ -36,8 +33,6 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
-    env: 
-      NODE_ENV: development
     needs: setup_env
     steps:    
     - name: Checkout
@@ -55,8 +50,6 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
-    env: 
-      NODE_ENV: development
     needs: setup_env
 
     steps:
@@ -75,8 +68,6 @@ jobs:
 
   lint:
     runs-on: ubuntu-latest
-    env: 
-      NODE_ENV: development
     needs: setup_env
 
     steps:
