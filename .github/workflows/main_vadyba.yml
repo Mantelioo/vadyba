@@ -11,9 +11,41 @@ on:
       - completed
 
 jobs:
+
+  create_release_tag:
+    runs-on: 'ubuntu-latest'
+    outputs:
+      get_image_tag_date_timestamp: ${{ steps.get_image_tag_date_timestamp.outputs.date_timestamp }}
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v2
+      
+    - name: Get image tag date timestamp
+      id: get_image_tag_date_timestamp
+      run: echo "date_timestamp=$(date '+%F_%H-%M-%S')" >> $GITHUB_OUTPUT
+
+    - name: Bump version and push tag
+      id: tag_version
+      uses: mathieudutour/github-tag-action@v6.2
+      with:
+        custom_release_rules: add:minor:Added,remove:minor:Removed,bump:patch:Packages,build:minor:Build,ci:patch:CI,docs:patch:Docs,feat:major:New Features,fix:patch:Fixes,perf:major:Performance optimizations,refactor:patch:Misc Changes,test:patch:Misc Changes,revert:patch:Misc Changes
+        custom_tag: ${{ steps.get_image_tag_date_timestamp.outputs.date_timestamp }}
+        tag_prefix: deploy_
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Create a GitHub release
+      uses: ncipollo/release-action@v1
+      with:
+        artifactErrorsFailBuild: true
+        generateReleaseNotes: true
+        tag: ${{ steps.tag_version.outputs.new_tag }}
+        name: Release ${{ steps.tag_version.outputs.new_tag }}
+        body: ${{ steps.tag_version.outputs.changelog }}
+    
+
   build:
     runs-on: 'ubuntu-latest'
-
     steps:
     - uses: actions/checkout@v2
 
@@ -51,3 +83,5 @@ jobs:
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_1b4ce5c844b94cdda0572d0c5ff40c89 }}
         images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_41bd6a1929b246eb9d49246f19db3ac2 }}/vadyba:${{ github.sha }}'
+
+  
