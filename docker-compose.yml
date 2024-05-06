@@ -1,0 +1,5 @@
+services:
+  ubuntu-latest:
+    image: docker.io/kaktusinis212/vadyba:my_image
+    ports:
+      - 80:3000

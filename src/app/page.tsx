@@ -46,9 +46,7 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
+          <h1>TEST</h1>
           <p>Find in-depth information about Next.js features and API.</p>
         </a>
 
