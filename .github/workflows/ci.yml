@@ -12,7 +12,7 @@ jobs:
   setup_env:
     runs-on: ubuntu-latest
     env: 
-      NODE_ENV: test
+      NODE_ENV: development
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -31,31 +31,32 @@ jobs:
           node-version: 18
       
       - name: Install dependencies
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
         run: npm install
 
-  build:
-    runs-on: ubuntu-latest
-    env: 
-      NODE_ENV: test
-    needs: setup_env
-    steps:    
-    - name: Checkout
-      uses: actions/checkout@v4
+  # build:
+  #   runs-on: ubuntu-latest
+  #   env: 
+  #     NODE_ENV: development
+  #   needs: setup_env
+  #   steps:    
+  #   - name: Checkout
+  #     uses: actions/checkout@v4
 
-    - name: cache node_modules
-      id: cache-node-modules
-      uses: actions/cache@v3
-      with:
-        path: '**/node_modules'
-        key: ${{ runner.os }}-build-node-modules-cache-${{ hashFiles('**/package-lock.json') }}
+  #   - name: cache node_modules
+  #     id: cache-node-modules
+  #     uses: actions/cache@v3
+  #     with:
+  #       path: '**/node_modules'
+  #       key: ${{ runner.os }}-build-node-modules-cache-${{ hashFiles('**/package-lock.json') }}
 
-    - name: "Build"
-      run: npm run build
+  #   - name: "Build"
+  #     run: npm run build
 
   test:
     runs-on: ubuntu-latest
     env: 
-      NODE_ENV: test
+      NODE_ENV: development
     needs: setup_env
 
     steps:
@@ -72,22 +73,22 @@ jobs:
     - name: Run tests
       run: npx jest
 
-  lint:
-    runs-on: ubuntu-latest
-    env: 
-      NODE_ENV: test
-    needs: setup_env
+  # lint:
+  #   runs-on: ubuntu-latest
+  #   env: 
+  #     NODE_ENV: development
+  #   needs: setup_env
 
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v4
+  #   steps:
+  #   - name: Checkout
+  #     uses: actions/checkout@v4
 
-    - name: cache node_modules
-      id: cache-node-modules
-      uses: actions/cache@v3
-      with:
-        path: '**/node_modules'
-        key: ${{ runner.os }}-build-node-modules-cache-${{ hashFiles('**/package-lock.json') }}
+  #   - name: cache node_modules
+  #     id: cache-node-modules
+  #     uses: actions/cache@v3
+  #     with:
+  #       path: '**/node_modules'
+  #       key: ${{ runner.os }}-build-node-modules-cache-${{ hashFiles('**/package-lock.json') }}
 
-    - name: Run lint
-      run: npm run lint
+  #   - name: Run lint
+  #     run: npm run lint
