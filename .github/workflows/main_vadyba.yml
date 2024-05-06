@@ -31,7 +31,8 @@ jobs:
       with:
         push: true
         tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_41bd6a1929b246eb9d49246f19db3ac2 }}/vadyba:${{ github.sha }}
-        file: ./Dockerfile
+        file: ./DOCKERFILE
+        context: .
 
   deploy:
     runs-on: ubuntu-latest
