@@ -9,23 +9,46 @@ on:
       - main
 
 jobs:
+  setup_env:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      
+      - name: Install dependencies
+        run: npm ci
+
   build:
     runs-on: ubuntu-latest
+    needs: setup_env
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-    
-    - name: "Build Docker image"
-      run: docker build -f DOCKERFILE -t vadyba-app .
+    steps:    
+    - name: "Build"
+      run: npm run build
 
   test:
     runs-on: ubuntu-latest
-    needs: build
+    needs: setup_env
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
-    - name: Run Jest test with Docker
-      run: docker run --rm vadyba-app npx jest
+    - name: Run tests
+      run: npm run test
+
+  lint:
+    runs-on: ubuntu-latest
+    needs: setup_env
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Run lint
+      run: npm run lint
