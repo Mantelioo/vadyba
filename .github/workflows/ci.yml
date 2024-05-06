@@ -71,7 +71,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
     - name: Run tests
-      run: npm run jest
+      run: npm run test
 
   # lint:
   #   runs-on: ubuntu-latest
