@@ -11,6 +11,8 @@ on:
 jobs:
   setup_env:
     runs-on: ubuntu-latest
+    env: 
+      NODE_ENV: test
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -33,6 +35,8 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    env: 
+      NODE_ENV: test
     needs: setup_env
     steps:    
     - name: Checkout
@@ -50,6 +54,8 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+    env: 
+      NODE_ENV: test
     needs: setup_env
 
     steps:
@@ -68,6 +74,8 @@ jobs:
 
   lint:
     runs-on: ubuntu-latest
+    env: 
+      NODE_ENV: test
     needs: setup_env
 
     steps:
