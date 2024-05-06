@@ -9,30 +9,30 @@ on:
       - main
 
 jobs:
-  setup_env:
-    runs-on: ubuntu-latest
-    env: 
-      NODE_ENV: development
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+  # setup_env:
+  #   runs-on: ubuntu-latest
+  #   env: 
+  #     NODE_ENV: development
+  #   steps:
+  #     # - name: Checkout
+  #     #   uses: actions/checkout@v4
 
-      - name: cache node_modules
-        id: cache-node-modules
-        uses: actions/cache@v3
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-build-node-modules-cache-${{ hashFiles('**/package-lock.json') }}
+  #     - name: cache node_modules
+  #       id: cache-node-modules
+  #       uses: actions/cache@v3
+  #       with:
+  #         path: '**/node_modules'
+  #         key: ${{ runner.os }}-build-node-modules-cache-${{ hashFiles('**/package-lock.json') }}
       
       
-      - name: Setup node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
+  #     - name: Setup node
+  #       uses: actions/setup-node@v4
+  #       with:
+  #         node-version: 18
       
-      - name: Install dependencies
-        if: steps.cache-node-modules.outputs.cache-hit != 'true'
-        run: npm install
+  #     - name: Install dependencies
+  #       if: steps.cache-node-modules.outputs.cache-hit != 'true'
+  #       run: npm install
 
   # build:
   #   runs-on: ubuntu-latest
@@ -57,7 +57,7 @@ jobs:
     runs-on: ubuntu-latest
     env: 
       NODE_ENV: development
-    needs: setup_env
+    # needs: setup_env
 
     steps:
     - name: Checkout
@@ -69,9 +69,7 @@ jobs:
         node-version: 18
       
     - name: Install dependencies
-      run: |
-        npm install
-        npm install -g jest
+      run: npm install
 
     - name: Checkout code
       uses: actions/checkout@v4
