@@ -13,4 +13,9 @@ describe("demo_test",()=>{
         // expect(1).toStrictEqual(2)
         expect(3).toStrictEqual(3)
     })
+
+    test("demo_test4",()=>{
+        // expect(1).toStrictEqual(2)
+        expect(4).toStrictEqual(4)
+    })
 })
