@@ -11,7 +11,7 @@ on:
 jobs:
   printenv:
     runs-on: ubuntu-latest
-    environment: test
+    env: test
     steps:
       - name: Checkout
         uses: actions/checkout@v4
