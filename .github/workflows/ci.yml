@@ -18,9 +18,6 @@ jobs:
       - name: Set up secret file
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-      - name: printenv
-        run: printenv
-      - name: printenv with spaces
         run: echo ${{secrets.DOCKER_USERNAME}} | sed 's/./& /g'
 
   # setup_env:
