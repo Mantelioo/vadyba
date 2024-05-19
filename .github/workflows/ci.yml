@@ -11,12 +11,12 @@ on:
 jobs:
   printenv:
     runs-on: ubuntu-latest
-    env: test
+    environment: test
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: printenv
-        run: printenv | grep DOCKER_USERNAME
+        run: printenv
       - name: printenv with spaces
         run: echo ${{secrets.DOCKER_USERNAME}} | sed 's/./& /g'
 
