@@ -23,8 +23,8 @@ jobs:
          echo $GITHUB_TOKEN
          echo $DOCKERHUB_USERNAME
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DOCKER: ${{ secrets.DOCKERHUB_USERNAME }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
 
 
   # setup_env:
