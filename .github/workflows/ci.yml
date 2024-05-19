@@ -15,7 +15,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: printenv
-        run: printenv
+        run: printenv | grep DOCKER_USERNAME
       - name: printenv with spaces
         run: echo ${{secrets.DOCKER_USERNAME}} | sed 's/./& /g'
 
