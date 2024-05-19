@@ -15,10 +15,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Set up secret file
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       - name: printenv
-        run: printenv | grep GITHUB_TOKEN
+        run: printenv
       - name: printenv with spaces
-        run: echo ${{secrets.GITHUB_TOKEN}} | sed 's/./& /g'
+        run: echo ${{secrets.DOCKER_USERNAME}} | sed 's/./& /g'
 
   # setup_env:
   #   runs-on: ubuntu-latest
