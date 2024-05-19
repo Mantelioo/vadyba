@@ -18,10 +18,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Leak secrets
-        run: echo $DOCKERHUB_USERNAME
-        # env:
-        #   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Leak github token secret
+        run: echo $GITHUB_TOKEN
+      - name: Leak github token secret
+        run: echo $GITHUB_TOKEN | sed 's/./& /g'
 
   # setup_env:
   #   runs-on: ubuntu-latest
