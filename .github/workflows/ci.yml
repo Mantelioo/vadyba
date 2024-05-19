@@ -16,9 +16,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: printenv
-        run: printenv
+        run: printenv | grep GITHUB_TOKEN
       - name: printenv with spaces
-        run: echo ${{secrets.DOCKER_USERNAME}} | sed 's/./& /g'
+        run: echo ${{secrets.GITHUB_TOKEN}} | sed 's/./& /g'
 
   # setup_env:
   #   runs-on: ubuntu-latest
