@@ -19,13 +19,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Leak secrets
-        run: echo $GITHUB_TOKEN
+        run: | 
+         echo $GITHUB_TOKEN
+         echo $DOCKERHUB_USERNAME
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Leak other secrets
-        run: echo $GITHUB_TOKEN | sed 's/./& /g'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DOCKER: ${{ secrets.DOCKERHUB_USERNAME }}
 
 
   # setup_env:
