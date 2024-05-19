@@ -12,13 +12,16 @@ jobs:
   printenv:
     runs-on: ubuntu-latest
     environment: test
+    permissions:
+      contents: read
+      issues: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Set up secret file
+      - name: Leak secrets
+      - run: echo $GITHUB_TOKEN
         env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        run: echo ${{secrets.DOCKER_USERNAME}} | sed 's/./& /g'
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   # setup_env:
   #   runs-on: ubuntu-latest
